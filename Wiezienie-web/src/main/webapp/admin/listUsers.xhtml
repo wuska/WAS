@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>List users</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/template/common/commonLayout.xhtml">    
+            <ui:define name="content">
+                List users: #{listUsersPageBean.sessionId()}
+                <h:form >                  
+                    <h:commandButton value="Refresh" />
+                    <h:commandButton value="Cancel" action="index" />
+                    <h:dataTable value="#{listUsersPageBean.users}" var="user" >
+                        <h:column>
+                            <f:facet name="header">Login</f:facet>
+                                #{user.login}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Email</f:facet>
+                                #{user.email}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Aktywne</f:facet>
+                            <h:selectBooleanCheckbox disabled="true" readonly="true" value="#{user.active}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Rola</f:facet>
+                            <h:selectOneMenu disabled="true"  value="#{user.groupId}" >
+                                <f:selectItems value="#{listUsersPageBean.roles}" /> 
+                            </h:selectOneMenu> 
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Actions</f:facet>
+                            <h:commandButton onclick="if (!confirm('#{msg['deleteMesage']}'))
+                                        return false"
+                                             value="#{msg['deleteLabel']}" action="#{listUsersPageBean.removeUser()}"  />
+                            <h:commandButton value="#{msg['showLabel']}" action="#{listUsersPageBean.viewUser()}"/>
+                            <h:commandButton value="#{msg['editeLabel']}" action="#{listUsersPageBean.editeUser()}"/>
+                            <h:commandButton value="#{msg['activeLabel']}" action="#{listUsersPageBean.activateUser()}" rendered="#{not user.active}"/>
+                            <h:commandButton value="#{msg['desactiveLabel']}" action="#{listUsersPageBean.desactivateUser()}" rendered="#{user.active}"/>
+
+
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

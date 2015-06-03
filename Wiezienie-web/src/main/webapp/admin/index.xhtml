@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Secured Admin Area</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template/common/commonLayout.xhtml">    
+            <ui:define name="content">
+                <h1>Hello Admin</h1>
+                <br />
+                <h:link outcome="/index" value="Back to Homepage" />
+                <br /><br />
+                
+                <h:link outcome="listUsers" value="#{msg['listUserLabel']}" /><br />
+                <h:link outcome="register" value="#{msg['registerLabel']}" /><br />
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
