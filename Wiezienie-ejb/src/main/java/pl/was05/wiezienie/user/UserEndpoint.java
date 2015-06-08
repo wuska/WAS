@@ -30,7 +30,7 @@ public class UserEndpoint implements UserEndpointLocal {
 
     @EJB
     private UserFacade userFacade;
-
+    private User userEdit = null;
 
     @Override
     public void registerUser(final UserDTO user) {
@@ -76,17 +76,29 @@ public class UserEndpoint implements UserEndpointLocal {
     }
 
     public UserDTO getUserToEdit(String login) {
-        return findByLogin(login);
-    }
-
-    public void saveUserAfterEdit(UserDTO userDTO) {
-        User tmp = userFacade.findByLogin(userDTO.getLogin());
-        try{
-        userFacade.lock(tmp, LockModeType.WRITE);
-        }catch(OptimisticLockException ex){
+        userEdit = userFacade.findByLogin(login);
+        userFacade.refresh(userEdit);
+        try {
+            userFacade.lock(userEdit, LockModeType.WRITE);
+        } catch (OptimisticLockException ex) {
             //optymistyczna blokada
             Logger.getLogger(UserEndpoint.class.getName()).log(Level.SEVERE, null, ex);
         }
-        UserConverter.convertUserToEntityAfterEdit(userDTO, tmp);
+
+        UserDTO userDTO = new UserDTO();
+
+        UserConverter.convertUserToDTO(userEdit, userDTO);
+        return userDTO;
+    }
+
+    public void saveUserAfterEdit(UserDTO userDTO) {
+        if (null == userEdit) {
+            throw new IllegalArgumentException("Proba zapisania konta bez formularza edycji");
+        }
+        if (!userEdit.getLogin().equals(userDTO.getLogin())) {
+            throw new IllegalArgumentException("Proba edycji innego konta niż pobrane do edycji");
+        }
+        UserConverter.convertUserToEntityAfterEdit(userDTO, userEdit);
+        userFacade.edit(userEdit);
     }
 }

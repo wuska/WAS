@@ -23,6 +23,14 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
+    public void flush() {
+        getEntityManager().flush();
+    }
+
+    public void refresh(T entity) {
+        getEntityManager().refresh(entity);
+    }
+
     public void create(T entity) {
         getEntityManager().persist(entity);
     }
@@ -62,6 +70,4 @@ public abstract class AbstractFacade<T> {
         return ((Long) q.getSingleResult()).intValue();
     }
 
- 
-  
 }
