@@ -8,16 +8,14 @@ package pl.was05.wiezienie.facades;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import pl.was05.wiezienie.entities.Role;
-import pl.was05.wiezienie.entities.User;
+import pl.was05.wiezienie.entities.Penalty;
 
 /**
  *
- * @author java
+ * @author Kawa
  */
 @Stateless
-public class RoleFacade extends AbstractFacade<Role> {
+public class PenaltyFacade extends AbstractFacade<Penalty> {
     @PersistenceContext(unitName = "was05punit")
     private EntityManager em;
 
@@ -26,14 +24,8 @@ public class RoleFacade extends AbstractFacade<Role> {
         return em;
     }
 
-    public RoleFacade() {
-        super(Role.class);
+    public PenaltyFacade() {
+        super(Penalty.class);
     }
-     public Role findByName(String roleName) {
-        TypedQuery tq = getEntityManager().createNamedQuery("User.findByName", User.class);
-        tq.setParameter("roleName", roleName);
-        return (Role) tq.getSingleResult();
-    }
-    
     
 }

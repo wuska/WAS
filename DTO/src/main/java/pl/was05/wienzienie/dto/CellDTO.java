@@ -8,10 +8,31 @@ package pl.was05.wienzienie.dto;
 
 /**
  *
- * @author zar
+ * @author Kawa
  */
 public class CellDTO {
+    
+    private Integer capacity;
+    private Integer employeeId;
 
- 
+    public Integer getCapacity() {
+        return capacity;
+    }
 
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
+    }
+    
+    @Override
+    public String toString() {
+        return "CellDTO{" + "capactity=" + capacity + " employeeId=" + employeeId + "}";
+    }
 }

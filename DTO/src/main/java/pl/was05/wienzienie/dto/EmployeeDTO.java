@@ -5,61 +5,42 @@
  */
 package pl.was05.wienzienie.dto;
 
-
 /**
  *
  * @author Kawa
  */
-public class PrisonerDTO {
+public class EmployeeDTO {
     
     private String name;
     private Long pesel;
-    private Long karaId;
+    private String phoneNumber;
 
-    /**
-     * @return the name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * @param name the name to set
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * @return the pesel
-     */
     public Long getPesel() {
         return pesel;
     }
 
-    /**
-     * @param pesel the pesel to set
-     */
     public void setPesel(Long pesel) {
         this.pesel = pesel;
     }
 
-    /**
-     * @return the karaId
-     */
-    public Long getKaraId() {
-        return karaId;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    /**
-     * @param karaId the karaId to set
-     */
-    public void setKaraId(Long karaId) {
-        this.karaId = karaId;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
     
     @Override
     public String toString() {
-        return "PrisonerDTO{" + "name=" + name + " pesel=" + pesel + " karaId=" + karaId + "}";
+        return "EmployeeDTO{" + "name=" + name + " pesel=" + pesel + " phoneNumber=" + phoneNumber + "}";
     }
 }
