@@ -12,8 +12,10 @@
             <ui:define name="content">
                 Register
                 <h:form>
-                    
-                   
+                    Data wyjścia: <h:inputText value="#{registerPrisonerPageBean.prisonDTO.dateExit}" > <f:convertDateTime pattern="yyyy-MM-dd HH:mm" /></h:inputText><br />
+                    Kara: <h:inputText value="#{registerPrisonerPageBean.prisonDTO.karaId}" /><br />
+                    Imię i nazwisko: <h:inputText value="#{registerPrisonerPageBean.prisonDTO.name}" /><br />
+                    PESEL: <h:inputText value="#{registerPrisonerPageBean.prisonDTO.pesel}" /><br />
                     <h:commandButton value="#{msg['okLabel']}" action="#{registerPrisonerPageBean.register()}" />
                     <h:commandButton value="#{msg['cancelLabel']}" action="/users/index" immediate="true" />
 

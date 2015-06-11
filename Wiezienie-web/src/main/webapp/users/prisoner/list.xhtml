@@ -17,21 +17,29 @@
                     <h:commandButton value="#{msg['cancelLabel']}" action="/users/index" />
                     <h:dataTable value="#{listPrisonersPageBean.prisoners}" var="row" >
                         <h:column>
-                            <f:facet name="header"></f:facet>
-                                
+                            <f:facet name="header">Data wyjścia</f:facet>
+                            <h:outputText value="#{row.dateExit}" ><f:convertDateTime pattern="yyyy-MM-dd HH:mm" /></h:outputText><br />
                         </h:column>
                         <h:column>
-                            <f:facet name="header"></f:facet>
-                              
-                        </h:column>                        
+                            <f:facet name="header">Imię i nazwisko</f:facet>
+                            <h:outputText value="#{row.name}" />
+                        </h:column>  
+                        <h:column>
+                            <f:facet name="header">PESEL</f:facet>
+                            <h:outputText value="#{row.pesel}" />
+                        </h:column>  
+                        <h:column>
+                            <f:facet name="header">Kara</f:facet>
+                            <h:outputText value="#{row.karaId}" />
+                        </h:column>  
                         <h:column>
                             <f:facet name="header">Actions</f:facet>
                             <h:commandButton onclick="if (!confirm('#{msg['deleteMesage']}'))
                                         return false"
                                              value="#{msg['deleteLabel']}" action="#{listPrisonersPageBean.remove()}"  />
                             <h:commandButton value="#{msg['showLabel']}" action="#{listPrisonersPageBean.view()}"/>
-                            <h:commandButton value="#{msg['editeLabel']}" action="#{listPrisonersPageBean.edite()}"/>
-                     
+                            <h:commandButton value="#{msg['editeLabel']}" action="#{listPrisonersPageBean.edit()}"/>
+
                         </h:column>
                     </h:dataTable>
                 </h:form>

@@ -16,4 +16,14 @@ import pl.was05.wienzienie.dto.PrisonerDTO;
 public interface PrisonerEndpointLocal {
 
     List<PrisonerDTO> getAll();
+
+    public PrisonerDTO getPrisonerToEdit(Long cellId);
+
+    public void removePrisoner(PrisonerDTO prisonerDTO);
+
+    public void registerPrisoner(PrisonerDTO prisonerDTO);
+
+    public void savePrisonerAfterEdit(PrisonerDTO prisonerDTO);
+
+    public PrisonerDTO findById(Long cellId);
 }

@@ -29,7 +29,16 @@ public class RegisterPrisonerPageBean {
     }
 
     public String register() {
+        prisonerController.setRegisteredPrison(prisonDTO);
         return "registerConfirm";
+    }
+
+    public PrisonerDTO getPrisonDTO() {
+        return prisonDTO;
+    }
+
+    public void setPrisonDTO(PrisonerDTO prisonDTO) {
+        this.prisonDTO = prisonDTO;
     }
     
     

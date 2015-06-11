@@ -23,7 +23,7 @@ public class RegisterPrisonerConfirmPageBean {
     private PrisonerController prisonerController;
 
     public PrisonerDTO getPrisoner() {
-         return prisonerController.getRegistered();
+         return prisonerController.getRegisteredPrison();
 
     }
 

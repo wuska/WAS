@@ -18,73 +18,63 @@ import pl.was05.wiezienie.prisoner.PrisonerEndpointLocal;
  */
 @SessionScoped
 public class PrisonerController implements Serializable {
-
+    
     @EJB
     private PrisonerEndpointLocal endpointLocal;
-
+    
     private PrisonerDTO registeredPrison;
     private PrisonerDTO viewPrison;
     private PrisonerDTO editPrison;
-
+    
     public List<PrisonerDTO> getAll() {
         return endpointLocal.getAll();
     }
-
+    
     public void getToView(PrisonerDTO prisonDTO) {
-
+        viewPrison = endpointLocal.findById(prisonDTO.getPrisonerId());
     }
-
-    public PrisonerDTO getEdit() {
-        return new PrisonerDTO();
-    }
-
-    public PrisonerDTO getRegistered() {
-        return new PrisonerDTO();
-    }
-
-    public PrisonerDTO getView() {
-        return new PrisonerDTO();
-    }
-
+    
     public void register() {
-
+         System.err.println("registeredPrison"+registeredPrison);
+        endpointLocal.registerPrisoner(registeredPrison);
     }
-
+    
     public void getToEdit(PrisonerDTO prisonDTO) {
-
+        editPrison = endpointLocal.getPrisonerToEdit(prisonDTO.getPrisonerId());
     }
-
+    
     public void saveAfterEdit() {
-
+        endpointLocal.savePrisonerAfterEdit(editPrison);
     }
-
+    
     public void remove(PrisonerDTO prisonDTO) {
-
+        endpointLocal.removePrisoner(endpointLocal.findById(prisonDTO.getPrisonerId()));
     }
 
 //----------------------------------------------------------------------
     public PrisonerDTO getRegisteredPrison() {
+         System.err.println("registeredPrison get"+registeredPrison);
         return registeredPrison;
     }
-
+    
     public void setRegisteredPrison(PrisonerDTO registeredPrison) {
         this.registeredPrison = registeredPrison;
     }
-
+    
     public PrisonerDTO getViewPrison() {
         return viewPrison;
     }
-
+    
     public void setViewPrison(PrisonerDTO viewPrison) {
         this.viewPrison = viewPrison;
     }
-
+    
     public PrisonerDTO getEditPrison() {
         return editPrison;
     }
-
+    
     public void setEditPrison(PrisonerDTO editPrison) {
         this.editPrison = editPrison;
     }
-
+    
 }

@@ -6,6 +6,7 @@
 package pl.was05.wiezienie.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 /**
  *
@@ -34,8 +38,15 @@ public class Prisoner implements Serializable {
     @Column(nullable = false, unique = true)
     private Long pesel;
     
+    
+    @Column(nullable = true, unique = false)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date dateExit;
+    
     @Column(nullable = false, unique = false)
     private Long karaId;
+    
+     @Version int version;
 
     public Long getId() {
         return id;
@@ -45,6 +56,15 @@ public class Prisoner implements Serializable {
         this.id = id;
     }
 
+    public Date getDateExit() {
+        return dateExit;
+    }
+
+    public void setDateExit(Date dateExit) {
+        this.dateExit = dateExit;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -22,8 +22,8 @@ public class ViewPrisonerPageBean {
     @Inject
     private PrisonerController prisonerController;
 
-    public PrisonerDTO getPrison() {
-        return prisonerController.getView();
+    public PrisonerDTO getPrisonDTO() {
+        return prisonerController.getViewPrison();
     }
 
 }

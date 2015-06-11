@@ -31,7 +31,7 @@ public class CellController implements Serializable {
     }
     
     public void getToView(CellDTO cellDTO) {
-        System.err.println("cellDTO.getId()"+cellDTO.getId());
+       
        viewCell = endpointLocal.findById(cellDTO.getId());
     }
     

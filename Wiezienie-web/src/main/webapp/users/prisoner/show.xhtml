@@ -13,8 +13,10 @@
             <ui:define name="content">
                 View:
                 <h:form>
-<!--                    Login: <h:outputText value="#{viewPageBean.user.login}" /><br />
-                    Email: <h:outputText value="#{viewPageBean.user.email}" /><br />-->
+                    Data wyjścia: <h:outputText value="#{viewPrisonerPageBean.prisonDTO.dateExit}" ><f:convertDateTime pattern="yyyy-MM-dd HH:mm" /></h:outputText><br />
+                    Kara: <h:outputText value="#{viewPrisonerPageBean.prisonDTO.karaId}" /><br />
+                    Imię i nazwisko: <h:outputText value="#{viewPrisonerPageBean.prisonDTO.name}" /><br />
+                    PESEL: <h:outputText value="#{viewPrisonerPageBean.prisonDTO.pesel}" /><br />
                     <h:commandButton value="#{msg['okLabel']}" action="list"/>
                 </h:form>
             </ui:define>

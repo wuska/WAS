@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>#{msg['editeLabel']}</title>
     </h:head>
@@ -10,6 +11,9 @@
         <ui:composition template="/template/common/commonLayout.xhtml">    
             <ui:define name="content">                
                 <h:form>
+                    Data wyjścia: <h:inputText value="#{editPrisonerPageBean.prisonDTO.dateExit}" ><f:convertDateTime pattern="yyyy-MM-dd HH:mm" /></h:inputText><br />
+                    Kara: <h:inputText value="#{editPrisonerPageBean.prisonDTO.karaId}" /><br />
+                    Imię i nazwisko: <h:inputText value="#{editPrisonerPageBean.prisonDTO.name}" /><br />
                     
                     <h:commandButton value="#{msg['okLabel']}" action="#{editPrisonerPageBean.save()}"/>
                     <h:commandButton value="#{msg['cancelLabel']}" action="list" immediate="true"/>

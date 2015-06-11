@@ -7,6 +7,7 @@ package pl.was05.wiezienie.facades;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import pl.was05.wiezienie.entities.Prisoner;
 
@@ -27,5 +28,8 @@ public class PrisonerFacade extends AbstractFacade<Prisoner> {
     public PrisonerFacade() {
         super(Prisoner.class);
     }
-    
+    public void lock(Prisoner prisoner,LockModeType lockModeType){
+        getEntityManager().lock(prisoner, lockModeType);
+        
+    }
 }

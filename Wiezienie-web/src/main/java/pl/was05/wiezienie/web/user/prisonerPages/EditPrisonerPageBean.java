@@ -22,8 +22,8 @@ public class EditPrisonerPageBean {
     @Inject
     private PrisonerController prisonerController;
 
-    public PrisonerDTO getPrison() {
-        return prisonerController.getEdit();
+    public PrisonerDTO getPrisonDTO() {
+        return prisonerController.getEditPrison();
     }
 
     public String save() {

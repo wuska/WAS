@@ -5,6 +5,8 @@
  */
 package pl.was05.wienzienie.dto;
 
+import java.util.Date;
+
 
 /**
  *
@@ -15,6 +17,8 @@ public class PrisonerDTO {
     private String name;
     private Long pesel;
     private Long karaId;
+    private Long prisonerId;
+    private Date dateExit;
 
     /**
      * @return the name
@@ -57,9 +61,27 @@ public class PrisonerDTO {
     public void setKaraId(Long karaId) {
         this.karaId = karaId;
     }
+
+    public Long getPrisonerId() {
+        return prisonerId;
+    }
+
+    public void setPrisonerId(Long prisonerId) {
+        this.prisonerId = prisonerId;
+    }
+
+    public Date getDateExit() {
+        return dateExit;
+    }
+
+    public void setDateExit(Date dateExit) {
+        this.dateExit = dateExit;
+    }
+    
+    
     
     @Override
     public String toString() {
-        return "PrisonerDTO{" + "name=" + name + " pesel=" + pesel + " karaId=" + karaId + "}";
+        return "PrisonerDTO{" + "name=" + name + " pesel=" + pesel + " karaId=" + karaId +" dateExit="+dateExit+ "}";
     }
 }
