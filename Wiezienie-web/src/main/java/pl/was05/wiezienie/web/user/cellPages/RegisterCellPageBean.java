@@ -29,6 +29,16 @@ public class RegisterCellPageBean {
     }
 
     public String register() {
+        cellController.setRegisteredCell(cellDTO);
         return "registerConfirm";
     }
+
+    public CellDTO getCellDTO() {
+        return cellDTO;
+    }
+
+    public void setCellDTO(CellDTO cellDTO) {
+        this.cellDTO = cellDTO;
+    }
+    
 }

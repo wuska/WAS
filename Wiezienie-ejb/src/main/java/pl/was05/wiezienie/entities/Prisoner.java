@@ -20,12 +20,12 @@ import javax.persistence.TableGenerator;
  */
 @Entity
 @Table(name = "Prisoners")
-@TableGenerator(name = "UserGen", table = "generator", initialValue = 101, allocationSize = 10,
+@TableGenerator(name = "PrisonerGen", table = "generator", initialValue = 101, allocationSize = 10,
         pkColumnName = "class", pkColumnValue = "Prisoner", valueColumnName = "rsv")
 public class Prisoner implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "UserGen")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "PrisonerGen")
     private Long id;
     
     @Column(nullable = false, unique = false)

@@ -14,6 +14,7 @@ public class CellDTO {
     
     private Integer capacity;
     private Integer employeeId;
+    private Long id;
 
     public Integer getCapacity() {
         return capacity;
@@ -30,6 +31,15 @@ public class CellDTO {
     public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     
     @Override
     public String toString() {

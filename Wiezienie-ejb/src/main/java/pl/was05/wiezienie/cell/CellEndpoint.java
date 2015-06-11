@@ -5,9 +5,18 @@
  */
 package pl.was05.wiezienie.cell;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateful;
+import javax.persistence.LockModeType;
+import javax.persistence.OptimisticLockException;
 import pl.was05.wienzienie.dto.CellDTO;
+import pl.was05.wiezienie.entities.Cell;
+import pl.was05.wiezienie.facades.CellFacade;
+import pl.was05.wiezienie.utils.CellConverter;
 
 /**
  *
@@ -16,14 +25,70 @@ import pl.was05.wienzienie.dto.CellDTO;
 @Stateful
 public class CellEndpoint implements CellEndpointLocal {
 
+    @EJB
+    private CellFacade cellFacade;
+    private Cell cellEdit = null;
+    
     @Override
     public List<CellDTO> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Cell> cells = cellFacade.findAll();
+        List<CellDTO> cellDTOs = new ArrayList<>();
+        CellConverter.convertCellListToDTO(cells, cellDTOs);
+        return cellDTOs;
     }
 
 
+@Override
+    public void registerCell(final CellDTO cellDTO) {
+        Cell cell = new Cell();
+        CellConverter.convertCellToEntity(cellDTO, cell);
+        System.out.println(cell);
+        cellFacade.create(cell);
 
+    }
   
+    @Override
+ public void removeCell(CellDTO cellDTO) {
+        cellFacade.remove(cellFacade.find(cellDTO.getId()));
+    }
+
+
+    @Override
+    public CellDTO getCellToEdit(Long cellId) {
+        cellEdit = cellFacade.find(cellId);
+        cellFacade.refresh(cellEdit);
+        try {
+            cellFacade.lock(cellEdit, LockModeType.WRITE);
+        } catch (OptimisticLockException ex) {
+            //optymistyczna blokada
+            Logger.getLogger(CellEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        CellDTO cellDTO = new CellDTO();
+
+        CellConverter.convertCellToDTO(cellEdit, cellDTO);
+        return cellDTO;
+    }
+
+    @Override
+    public void saveCellAfterEdit(CellDTO cellDTO) {
+        if (null == cellEdit) {
+            throw new IllegalArgumentException("Proba zapisania rekordu bez formularza edycji");
+        }
+        if (!cellEdit.getId().equals(cellDTO.getId())) {
+            throw new IllegalArgumentException("Proba edycji innego rekordu niż pobrane do edycji");
+        }
+        CellConverter.convertCellToEntityAfterEdit(cellDTO, cellEdit);
+        cellFacade.edit(cellEdit);
+    }
+    
+    @Override
+     public CellDTO findById(Long cellId) {
+        Cell tmp = cellFacade.find(cellId);
+        CellDTO val = new CellDTO();
+        CellConverter.convertCellToDTO(tmp, val);
+        return val;
+    }
 
 
 }

@@ -12,7 +12,6 @@ import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 import pl.was05.wienzienie.dto.CellDTO;
-import pl.was05.wienzienie.dto.UserDTO;
 import pl.was05.wiezienie.web.user.cell.CellController;
 
 /**
@@ -38,7 +37,7 @@ public class ListCellsPageBean {
         cells = new ListDataModel<>(cellController.getAll());
     }
 
-    public String view() {
+    public String view() {        
         cellController.getToView(cells.getRowData());
         return "show";
     }

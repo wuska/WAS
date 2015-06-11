@@ -22,8 +22,8 @@ public class RegisterCellConfirmPageBean {
     @Inject
     private CellController cellController;
 
-    public CellDTO getUser() {
-        return cellController.getRegistered();
+    public CellDTO getCell() {
+        return cellController.getRegisteredCell();
     }
     public String register() {
          cellController.register();

@@ -17,12 +17,14 @@
                     <h:commandButton value="#{msg['cancelLabel']}" action="/users/index" />
                     <h:dataTable value="#{listCellsPageBean.cells}" var="row" >
                         <h:column>
-                            <f:facet name="header"></f:facet>
-                                
+                            <f:facet name="header">pojemność</f:facet>
+                            <h:outputText value="#{row.capacity}" />
+
                         </h:column>
                         <h:column>
-                            <f:facet name="header"></f:facet>
-                              
+                            <f:facet name="header">Opiekun:</f:facet>
+                            <h:outputText value="#{row.employeeId}" />
+
                         </h:column>                        
                         <h:column>
                             <f:facet name="header">Actions</f:facet>
@@ -31,7 +33,7 @@
                                              value="#{msg['deleteLabel']}" action="#{listCellsPageBean.remove()}"  />
                             <h:commandButton value="#{msg['showLabel']}" action="#{listCellsPageBean.view()}"/>
                             <h:commandButton value="#{msg['editeLabel']}" action="#{listCellsPageBean.edit()}"/>
-                            
+
                         </h:column>
                     </h:dataTable>
                 </h:form>

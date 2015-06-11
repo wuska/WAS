@@ -12,9 +12,9 @@
             <ui:define name="content">
                 Register
                 <h:form>
-                    
-                   
-                    <h:commandButton value="#{msg['okLabel']}" action="#{registerCellConfirmPageBean.register()}" />
+                    Pojemność: <h:inputText value="#{registerCellPageBean.cellDTO.capacity}" /><br />
+                    Opiekun: <h:inputText value="#{registerCellPageBean.cellDTO.employeeId}" /><br />
+                    <h:commandButton value="#{msg['okLabel']}" action="#{registerCellPageBean.register()}" />
                     <h:commandButton value="#{msg['cancelLabel']}" action="/users/index" immediate="true" />
 
                 </h:form>

@@ -10,7 +10,8 @@
         <ui:composition template="/template/common/commonLayout.xhtml">    
             <ui:define name="content">                
                 <h:form>
-                    
+                    Opiekun: <h:inputText value="#{editCellPageBean.cell.employeeId}" /><br />
+
                     <h:commandButton value="#{msg['okLabel']}" action="#{editCellPageBean.save()}"/>
                     <h:commandButton value="#{msg['cancelLabel']}" action="list" immediate="true"/>
                 </h:form>

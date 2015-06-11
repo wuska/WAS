@@ -22,8 +22,8 @@ public class ViewCellPageBean {
     @Inject
     private CellController cellController;
 
-    public CellDTO getUser() {
-        return cellController.getView();
+    public CellDTO getCell() {
+        return cellController.getViewCell();
     }
 
 }

@@ -15,6 +15,16 @@ import pl.was05.wienzienie.dto.CellDTO;
  */
 @Local
 public interface CellEndpointLocal {
+
     List<CellDTO> getAll();
 
+    void registerCell(final CellDTO cellDTO);
+
+    public void saveCellAfterEdit(CellDTO cellDTO);
+
+    public CellDTO getCellToEdit(Long cellId);
+
+    public void removeCell(CellDTO cellDTO);
+
+    public CellDTO findById(Long cellId);
 }

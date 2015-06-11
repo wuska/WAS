@@ -10,9 +10,9 @@
         <ui:composition template="/template/common/commonLayout.xhtml">    
             <ui:define name="content">
                 <h:form>
-<!--                    Login: <h:outputText value="#{registerConfirmPageBean.user.login}" /><br />
-                    Email: <h:outputText value="#{registerConfirmPageBean.user.email}" /><br />-->
-                    <h:commandButton value="#{msg['okLabel']}" action="#{registerConfirmPageBean.register()}" />
+                    Pojemność: <h:outputText value="#{registerCellConfirmPageBean.cell.capacity}" /><br />
+                    Opiekun: <h:outputText value="#{registerCellConfirmPageBean.cell.employeeId}" /><br />
+                    <h:commandButton value="#{msg['okLabel']}" action="#{registerCellConfirmPageBean.register()}" />
                     <h:commandButton value="#{msg['cancelLabel']}" action="index" />
 
                 </h:form>

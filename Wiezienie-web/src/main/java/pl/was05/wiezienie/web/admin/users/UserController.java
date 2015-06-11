@@ -27,8 +27,6 @@ public class UserController implements Serializable {
     private UserEndpointLocal userEndpoint;
 
     private UserDTO registeredUser;
-
-    
     private UserDTO viewUser;
     private UserDTO editUser;
 

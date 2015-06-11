@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.persistence.Version;
 
 /**
  *
@@ -20,12 +21,12 @@ import javax.persistence.TableGenerator;
  */
 @Entity
 @Table(name = "Cells")
-@TableGenerator(name = "UserGen", table = "generator", initialValue = 101, allocationSize = 10,
+@TableGenerator(name = "CellGen", table = "generator", initialValue = 101, allocationSize = 10,
         pkColumnName = "class", pkColumnValue = "Cell", valueColumnName = "rsv")
 public class Cell implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "UserGen")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "CellGen")
     private Long id;
     
     @Column(nullable = false, unique = false)
@@ -34,6 +35,8 @@ public class Cell implements Serializable {
     @Column(nullable = false, unique = false)
     private Integer employeeId;
 
+    @Version int version;
+    
     public Long getId() {
         return id;
     }
