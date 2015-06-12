@@ -12,6 +12,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
@@ -26,6 +30,7 @@ import javax.persistence.Version;
 @Table(name = "Prisoners")
 @TableGenerator(name = "PrisonerGen", table = "generator", initialValue = 101, allocationSize = 10,
         pkColumnName = "class", pkColumnValue = "Prisoner", valueColumnName = "rsv")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Prisoner implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,8 +48,9 @@ public class Prisoner implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dateExit;
     
-    @Column(nullable = false, unique = false)
-    private Long karaId;
+     @JoinColumn(name = "kara_id")
+    @OneToOne
+    private Penalty karaId;
     
      @Version int version;
 
@@ -127,14 +133,14 @@ public class Prisoner implements Serializable {
     /**
      * @return the karaId
      */
-    public Long getKaraId() {
+    public Penalty getKaraId() {
         return karaId;
     }
 
     /**
      * @param karaId the karaId to set
      */
-    public void setKaraId(Long karaId) {
+    public void setKaraId(Penalty karaId) {
         this.karaId = karaId;
     }
 

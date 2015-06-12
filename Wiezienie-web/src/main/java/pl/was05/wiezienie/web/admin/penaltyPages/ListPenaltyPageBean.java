@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.was05.wiezienie.web.user.prisonerPages;
+package pl.was05.wiezienie.web.admin.penaltyPages;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -12,9 +12,7 @@ import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 import pl.was05.wienzienie.dto.PenaltyDTO;
-import pl.was05.wienzienie.dto.PrisonerDTO;
 import pl.was05.wiezienie.web.admin.penalty.PenaltyController;
-import pl.was05.wiezienie.web.user.prisoner.PrisonerController;
 
 /**
  *
@@ -22,44 +20,40 @@ import pl.was05.wiezienie.web.user.prisoner.PrisonerController;
  */
 @RequestScoped
 @Named
-public class ListPrisonersPageBean {
-
-    @Inject
-    private PrisonerController prisonerController;
+public class ListPenaltyPageBean {
 
     @Inject
     private PenaltyController penaltyController;
 
-    DataModel<PrisonerDTO> prisoners;
     DataModel<PenaltyDTO> penaltys;
 
     @PostConstruct
     private void init() {
-        prisoners = new ListDataModel<>(prisonerController.getAll());
         penaltys = new ListDataModel<>(penaltyController.getAll());
+
     }
 
     public void remove() {
-        prisonerController.remove(prisoners.getRowData());
-        prisoners = new ListDataModel<>(prisonerController.getAll());
+        penaltyController.remove(penaltys.getRowData());
+        penaltys = new ListDataModel<>(penaltyController.getAll());
     }
 
     public String view() {
-        prisonerController.getToView(prisoners.getRowData());
+        penaltyController.getToView(penaltys.getRowData());
         return "show";
     }
 
     public String edit() {
-        prisonerController.getToEdit(prisoners.getRowData());
+        penaltyController.getToEdit(penaltys.getRowData());
         return "edit";
     }
 
-    public DataModel<PrisonerDTO> getPrisoners() {
-        return prisoners;
+    public DataModel<PenaltyDTO> getPenaltys() {
+        return penaltys;
     }
 
-    public void setPrisoners(DataModel<PrisonerDTO> prisoners) {
-        this.prisoners = prisoners;
+    public void setPenaltys(DataModel<PenaltyDTO> penaltys) {
+        this.penaltys = penaltys;
     }
 
 }

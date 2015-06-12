@@ -15,6 +15,7 @@ import javax.persistence.LockModeType;
 import javax.persistence.OptimisticLockException;
 import pl.was05.wienzienie.dto.PrisonerDTO;
 import pl.was05.wiezienie.entities.Prisoner;
+import pl.was05.wiezienie.facades.PenaltyFacade;
 import pl.was05.wiezienie.facades.PrisonerFacade;
 import pl.was05.wiezienie.utils.PrisonerConverter;
 
@@ -25,12 +26,13 @@ import pl.was05.wiezienie.utils.PrisonerConverter;
 @Stateful
 public class PrisonerEndpoint implements PrisonerEndpointLocal {
 
-
-  
- @EJB
+    @EJB
     private PrisonerFacade prisonerFacade;
+    @EJB
+    private PenaltyFacade penaltyFacade;
+
     private Prisoner prisonerEdit = null;
-    
+
     @Override
     public List<PrisonerDTO> getAll() {
         List<Prisoner> cells = prisonerFacade.findAll();
@@ -39,22 +41,30 @@ public class PrisonerEndpoint implements PrisonerEndpointLocal {
         return prisonerDTOs;
     }
 
-
-@Override
+    @Override
     public void registerPrisoner(final PrisonerDTO prisonerDTO) {
+        if (null == prisonerDTO.getKaraId()) {
+            throw new IllegalArgumentException("Wskazanie na kare nie może być puste");
+        }
+        try {
+            prisonerDTO.setKaraId(penaltyFacade.find(prisonerDTO.getKaraId()).getId());
+        } catch (NullPointerException ex) {
+            throw new IllegalArgumentException("Nie znaleźiono kary o podanym identyfikatoże.");
+        }
         Prisoner prisoner = new Prisoner();
-         System.err.println(prisonerDTO);
+        System.err.println(prisonerDTO);
+
         PrisonerConverter.convertPrisonerToEntity(prisonerDTO, prisoner);
+
         System.out.println(prisoner);
         prisonerFacade.create(prisoner);
 
     }
-  
+
     @Override
- public void removePrisoner(PrisonerDTO prisonerDTO) {
+    public void removePrisoner(PrisonerDTO prisonerDTO) {
         prisonerFacade.remove(prisonerFacade.find(prisonerDTO.getPrisonerId()));
     }
-
 
     @Override
     public PrisonerDTO getPrisonerToEdit(Long cellId) {
@@ -84,16 +94,13 @@ public class PrisonerEndpoint implements PrisonerEndpointLocal {
         PrisonerConverter.convertPrisonerToEntityAfterEdit(prisonerDTO, prisonerEdit);
         prisonerFacade.edit(prisonerEdit);
     }
-    
+
     @Override
-     public PrisonerDTO findById(Long cellId) {
+    public PrisonerDTO findById(Long cellId) {
         Prisoner tmp = prisonerFacade.find(cellId);
         PrisonerDTO val = new PrisonerDTO();
         PrisonerConverter.convertPrisonerToDTO(tmp, val);
         return val;
     }
-
-  
-
 
 }

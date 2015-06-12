@@ -11,8 +11,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.persistence.Version;
 
 /**
  *
@@ -22,6 +24,7 @@ import javax.persistence.TableGenerator;
 @Table(name = "Penalties")
 @TableGenerator(name = "PenaltieGen", table = "generator", initialValue = 101, allocationSize = 10,
         pkColumnName = "class", pkColumnValue = "Penalty", valueColumnName = "rsv")
+@NamedQuery(name = "Penalty.findByName", query = "SELECT u FROM Penalty u WHERE u.name = :name")
 public class Penalty implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -31,6 +34,15 @@ public class Penalty implements Serializable {
     @Column(nullable = false, unique = true)
     private String name;
 
+      @Version int version;
+
+    public Penalty(Long karaId) {
+       this.id = karaId;
+    }
+
+    public Penalty() {
+    }
+      
     public Long getId() {
         return id;
     }

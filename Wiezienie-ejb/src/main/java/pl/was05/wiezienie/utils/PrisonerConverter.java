@@ -7,6 +7,7 @@ package pl.was05.wiezienie.utils;
 
 import java.util.List;
 import pl.was05.wienzienie.dto.PrisonerDTO;
+import pl.was05.wiezienie.entities.Penalty;
 import pl.was05.wiezienie.entities.Prisoner;
 
 /**
@@ -17,7 +18,7 @@ public class PrisonerConverter {
 
     public static void convertPrisonerToDTO(Prisoner src, PrisonerDTO dst) {
         dst.setDateExit(src.getDateExit());
-        dst.setKaraId(src.getKaraId());
+        dst.setKaraId(src.getKaraId().getId());
         dst.setName(src.getName());
         dst.setPesel(src.getPesel());
         dst.setPrisonerId(src.getId());
@@ -26,7 +27,7 @@ public class PrisonerConverter {
     public static void convertPrisonerToEntity(PrisonerDTO src, Prisoner dst) {
         
         dst.setDateExit(src.getDateExit());
-        dst.setKaraId(src.getKaraId());
+        dst.setKaraId(new Penalty(src.getKaraId()));
         dst.setName(src.getName());
         dst.setPesel(src.getPesel());
         dst.setId(src.getPrisonerId());
@@ -34,7 +35,7 @@ public class PrisonerConverter {
 
     public static void convertPrisonerToEntityAfterEdit(PrisonerDTO src, Prisoner dst) {
         dst.setDateExit(src.getDateExit());
-        dst.setKaraId(src.getKaraId());
+        dst.setKaraId(new Penalty(src.getKaraId()));
         dst.setName(src.getName());
     }
 
