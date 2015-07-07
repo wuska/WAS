@@ -27,4 +27,6 @@ public interface CellEndpointLocal {
     public void removeCell(CellDTO cellDTO);
 
     public CellDTO findById(Long cellId);
+
+    public List<CellDTO> getByIdLike(Long id);
 }

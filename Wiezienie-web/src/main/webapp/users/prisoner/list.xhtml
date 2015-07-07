@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>List</title>
     </h:head>
@@ -11,8 +12,11 @@
 
         <ui:composition template="/template/common/commonLayout.xhtml">    
             <ui:define name="content">
+                <c:set var="isDeleteUser" value="#{request.isUserInRole('delete')}" scope="request" />
+Delete: #{isDeleteUser} <br/>
+                
                 List:
-                <h:form >                  
+                <h:form id="myform" >                  
                     <h:commandButton value="#{msg['refLabel']}" />
                     <h:commandButton value="#{msg['cancelLabel']}" action="/users/index" />
                     <h:dataTable value="#{listPrisonersPageBean.prisoners}" var="row" >
@@ -30,15 +34,20 @@
                         </h:column>  
                         <h:column>
                             <f:facet name="header">Kara</f:facet>
-                            <h:outputText value="#{row.karaId}" />
+                            <h:outputText value="#{row.penaltyDTO.name}" />
+                        </h:column>  
+                        <h:column>
+                            <f:facet name="header">Cela</f:facet>
+                            <h:outputText value="#{row.cellDTO.id}" />
                         </h:column>  
                         <h:column>
                             <f:facet name="header">Actions</f:facet>
                             <h:commandButton onclick="if (!confirm('#{msg['deleteMesage']}'))
                                         return false"
-                                             value="#{msg['deleteLabel']}" action="#{listPrisonersPageBean.remove()}"  />
+                                                     value="#{msg['deleteLabel']}" action="#{listPrisonersPageBean.remove()}" rendered="#{isDeleteUser}" />
                             <h:commandButton value="#{msg['showLabel']}" action="#{listPrisonersPageBean.view()}"/>
-                            <h:commandButton value="#{msg['editeLabel']}" action="#{listPrisonersPageBean.edit()}"/>
+                            <h:commandButton value="#{msg['editeLabel']}" action="#{listPrisonersPageBean.edit()}" id="editButon" />
+                             <h:message class="error" for="editButon" id="editButonError" />
 
                         </h:column>
                     </h:dataTable>

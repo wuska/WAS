@@ -48,7 +48,6 @@ public class LanguageBean implements Serializable {
     }
 
     public void setLocaleCode(String localeCode) {
-        System.err.printf("setLocaleLang: lang: " + localeCode + " Locale->" + Locale.forLanguageTag(localeCode));
         SessionUtil.setUserLang(localeCode);
         this.localeCode = localeCode;
     }
@@ -74,5 +73,10 @@ public class LanguageBean implements Serializable {
     
     public String sessionId(){
         return SessionUtil.getSessionId();
+    }
+    public String getUser(){
+         FacesContext context = FacesContext.getCurrentInstance();
+       return  context.getExternalContext().getRemoteUser();
+       
     }
 }

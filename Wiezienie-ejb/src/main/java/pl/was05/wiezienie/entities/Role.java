@@ -6,12 +6,15 @@
 package pl.was05.wiezienie.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -37,6 +40,9 @@ public class Role implements Serializable {
     @Column(nullable = false, unique = true)
     private String groupName;
 
+    @OneToMany(mappedBy = "role")
+    private List<UserAssociation> users;
+
     public Role() {
     }
 
@@ -60,6 +66,15 @@ public class Role implements Serializable {
         this.groupName = groupName;
     }
 
+    public List<UserAssociation> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserAssociation> users) {
+        this.users = users;
+    }
+
+  
     @Override
     public int hashCode() {
         int hash = 0;

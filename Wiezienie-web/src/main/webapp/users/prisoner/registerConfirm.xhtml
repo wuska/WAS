@@ -11,11 +11,11 @@
         <ui:composition template="/template/common/commonLayout.xhtml">    
             <ui:define name="content">
                 <h:form>
-                    Data wyjścia: <h:outputText value="#{registerPrisonerPageBean.prisonDTO.dateExit}" ><f:convertDateTime pattern="yyyy-MM-dd HH:mm" /></h:outputText><br />
-                    Kara: <h:outputText value="#{registerPrisonerPageBean.prisonDTO.karaId}" /><br />
-                    Imię i nazwisko: <h:outputText value="#{registerPrisonerPageBean.prisonDTO.name}" /><br />
-                    PESEL: <h:outputText value="#{registerPrisonerPageBean.prisonDTO.pesel}" /><br />
-
+                    Data wyjścia: <h:outputText value="#{registerPrisonerConfirmPageBean.prisoner.dateExit}" ><f:convertDateTime pattern="yyyy-MM-dd HH:mm" /></h:outputText><br />
+                    Kara: <h:outputText value="#{registerPrisonerConfirmPageBean.prisoner.penaltyDTO.name}" /><br />
+                    Imię i nazwisko: <h:outputText value="#{registerPrisonerConfirmPageBean.prisoner.name}" /><br />
+                    PESEL: <h:outputText value="#{registerPrisonerConfirmPageBean.prisoner.pesel}" /><br />
+                    CELA: <h:outputText value="#{registerPrisonerConfirmPageBean.prisoner.cellDTO.id}" /><br />
                     <h:commandButton value="#{msg['okLabel']}" action="#{registerPrisonerConfirmPageBean.register()}" />
                     <h:commandButton value="#{msg['cancelLabel']}" action="/users/index" />
 

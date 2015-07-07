@@ -15,6 +15,23 @@
                 <h:form>
                     Login: <h:outputText value="#{viewPageBean.user.login}" /><br />
                     Email: <h:outputText value="#{viewPageBean.user.email}" /><br />
+                    
+                    <br /><br />
+                    <br />Role:
+                    
+                    <h:dataTable value="#{viewPageBean.user.roleDTOs}" var="row" id="output">
+                        <h:column>
+                            <f:facet name="header">nazwa</f:facet>
+                            <h:outputText value="#{row.groupName}" />
+
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">id</f:facet>
+                            <h:outputText value="#{row.groupId}" />
+
+                        </h:column>
+                    </h:dataTable>
+                    
                     <h:commandButton value="OK" action="listUsers"/>
                 </h:form>
             </ui:define>

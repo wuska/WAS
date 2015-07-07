@@ -12,9 +12,9 @@
             <ui:define name="content">                
                 <h:form>
                     Data wyjścia: <h:inputText value="#{editPrisonerPageBean.prisonDTO.dateExit}" ><f:convertDateTime pattern="yyyy-MM-dd HH:mm" /></h:inputText><br />
-                    Kara: <h:inputText value="#{editPrisonerPageBean.prisonDTO.karaId}" /><br />
+                    Kara: <h:inputText value="#{editPrisonerPageBean.prisonDTO.penaltyDTO.id}" /><br />
                     Imię i nazwisko: <h:inputText value="#{editPrisonerPageBean.prisonDTO.name}" /><br />
-                    
+                    Cela: <h:inputText value="#{editPrisonerPageBean.prisonDTO.cellDTO.id}" /><br />
                     <h:commandButton value="#{msg['okLabel']}" action="#{editPrisonerPageBean.save()}"/>
                     <h:commandButton value="#{msg['cancelLabel']}" action="list" immediate="true"/>
                 </h:form>

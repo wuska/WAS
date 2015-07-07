@@ -28,4 +28,6 @@ public interface PenaltyEndpointLocal {
 
     public PenaltyDTO findById(Long name);
     PenaltyDTO findByName(String name);
+
+    public List<PenaltyDTO> getByNameLike(String name);
 }

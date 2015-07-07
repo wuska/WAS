@@ -8,8 +8,9 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:form>
-        <h:panelGrid columns="3"> 
-            #{language.sessionId()}
+        <h:panelGrid columns="1"> 
+            #{language.sessionId()}<br/>
+            user: <strong>#{language.getUser()}</strong> 
             <h:commandButton value=" #{msg['logoutLab']}" action="#{language.logout()}" />
             #{msg['langListName']}: 
             <h:selectOneMenu value="#{language.localeCode}" onchange="submit()"

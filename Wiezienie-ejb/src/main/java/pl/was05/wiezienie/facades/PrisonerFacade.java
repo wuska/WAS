@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import pl.was05.wiezienie.entities.Prisoner;
 
 /**
@@ -30,6 +31,13 @@ public class PrisonerFacade extends AbstractFacade<Prisoner> {
     }
     public void lock(Prisoner prisoner,LockModeType lockModeType){
         getEntityManager().lock(prisoner, lockModeType);
+        
+    }
+     public int countInCell(Long idCell){
+        TypedQuery<Prisoner> tq
+                = em.createQuery("SELECT u FROM Prisoner u WHERE u.cellId = :id ", Prisoner.class);
+        tq.setParameter("id", idCell);
+        return tq.getResultList().size();
         
     }
 }

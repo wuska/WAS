@@ -14,9 +14,10 @@
                 View:
                 <h:form>
                     Data wyjścia: <h:outputText value="#{viewPrisonerPageBean.prisonDTO.dateExit}" ><f:convertDateTime pattern="yyyy-MM-dd HH:mm" /></h:outputText><br />
-                    Kara: <h:outputText value="#{viewPrisonerPageBean.prisonDTO.karaId}" /><br />
+                    Kara: <h:outputText value="#{viewPrisonerPageBean.prisonDTO.penaltyDTO.name}" /><br />
                     Imię i nazwisko: <h:outputText value="#{viewPrisonerPageBean.prisonDTO.name}" /><br />
                     PESEL: <h:outputText value="#{viewPrisonerPageBean.prisonDTO.pesel}" /><br />
+                    Cela:  <h:outputText value="#{viewPrisonerPageBean.prisonDTO.cellDTO.id}" /><br />
                     <h:commandButton value="#{msg['okLabel']}" action="list"/>
                 </h:form>
             </ui:define>

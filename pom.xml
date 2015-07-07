@@ -8,8 +8,8 @@
   <name>Wiezienie</name>
   <modules>
     <module>Wiezienie-ear</module>
-    <module>Wiezienie-web</module>
     <module>Wiezienie-ejb</module>
     <module>DTO</module>
+    <module>Wiezienie-web</module>
   </modules>
 </project>

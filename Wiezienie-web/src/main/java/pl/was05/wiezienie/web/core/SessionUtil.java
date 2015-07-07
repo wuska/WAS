@@ -90,7 +90,6 @@ public class SessionUtil {
 
     public static void setUserLang(String lang) {
         if (lang != null) {
-            System.err.printf("setLocale: lang: " + lang + " Locale->" + Locale.forLanguageTag(lang));
             FacesContext.getCurrentInstance().getViewRoot().setLocale(Locale.forLanguageTag(lang));
         }
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);

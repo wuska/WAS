@@ -5,6 +5,7 @@
  */
 package pl.was05.wiezienie.facades;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
@@ -37,8 +38,21 @@ public class PenaltyFacade extends AbstractFacade<Penalty> {
     }
 
     public Penalty findByName(String name) {
+        
         TypedQuery tq = getEntityManager().createNamedQuery("Penalty.findByName", Penalty.class);
         tq.setParameter("name", name);
         return (Penalty) tq.getSingleResult();
+    }
+
+    public List<Penalty> findByNameLike(String name) {
+        
+        String namex = "%"+name+"%";
+        System.err.println("findByName name: " + namex);
+        TypedQuery<Penalty> tq
+                = em.createQuery("SELECT u FROM Penalty u WHERE u.name like :name", Penalty.class);
+        tq.setParameter("name", namex);
+        System.err.println("findByName name: " + tq.getResultList().toString());
+        return tq.getResultList();
+
     }
 }

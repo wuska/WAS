@@ -7,14 +7,18 @@ package pl.was05.wiezienie.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -32,27 +36,32 @@ import javax.persistence.Version;
         pkColumnName = "class", pkColumnValue = "Prisoner", valueColumnName = "rsv")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Prisoner implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "PrisonerGen")
     private Long id;
-    
+
     @Column(nullable = false, unique = false)
     private String name;
-    
+
     @Column(nullable = false, unique = true)
     private Long pesel;
-    
-    
+
     @Column(nullable = true, unique = false)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dateExit;
-    
-     @JoinColumn(name = "kara_id")
+
+    @JoinColumn(name = "kara_id")
     @OneToOne
     private Penalty karaId;
-    
-     @Version int version;
+
+    @JoinColumn(name = "cell_id")
+    @ManyToOne(fetch=FetchType.LAZY)
+    private Cell cellId;
+
+    @Version
+    int version;
 
     public Long getId() {
         return id;
@@ -70,36 +79,38 @@ public class Prisoner implements Serializable {
         this.dateExit = dateExit;
     }
 
-    
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        hash += (name != null ? name.hashCode() : 0);
-        hash += (pesel != null ? pesel.hashCode() : 0);
-        hash += (karaId != null ? karaId.hashCode() : 0);
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.name);
+        hash = 79 * hash + Objects.hashCode(this.pesel);
+        hash = 79 * hash + Objects.hashCode(this.dateExit);
+        hash = 79 * hash + Objects.hashCode(this.karaId);
+        hash = 79 * hash + Objects.hashCode(this.cellId);
         return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Prisoner)) {
-            return false;
-        }
-        Prisoner other = (Prisoner) object;
-        if (((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) ||
-            ((this.name == null && other.name != null) || (this.name != null && !this.name.equals(other.name))) ||
-            ((this.pesel == null && other.pesel != null) || (this.pesel != null && !this.pesel.equals(other.pesel))) ||
-            ((this.karaId == null && other.karaId != null) || (this.karaId != null && !this.karaId.equals(other.karaId)))) {
-            return false;
-        }
-        return true;
     }
 
     @Override
     public String toString() {
         return "pl.was05.wiezienie.entities.Prisoner[ id=" + id + " ]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Prisoner other = (Prisoner) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+       
+     
+        return true;
     }
 
     /**
@@ -142,6 +153,14 @@ public class Prisoner implements Serializable {
      */
     public void setKaraId(Penalty karaId) {
         this.karaId = karaId;
+    }
+
+    public Cell getCellId() {
+        return cellId;
+    }
+
+    public void setCellId(Cell cellId) {
+        this.cellId = cellId;
     }
 
 }

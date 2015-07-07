@@ -6,7 +6,10 @@
 package pl.was05.wiezienie.web.user.prisonerPages;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
@@ -50,7 +53,12 @@ public class ListPrisonersPageBean {
     }
 
     public String edit() {
-        prisonerController.getToEdit(prisoners.getRowData());
+         try {
+            prisonerController.getToEdit(prisoners.getRowData());
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage("myForm:newPassword1", new FacesMessage("ex:"+e));
+            return null;
+        }        
         return "edit";
     }
 

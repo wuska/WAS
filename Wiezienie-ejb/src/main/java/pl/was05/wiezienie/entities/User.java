@@ -6,6 +6,9 @@
 package pl.was05.wiezienie.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,9 +17,12 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
@@ -31,7 +37,7 @@ import javax.persistence.Version;
 @Table(name = "Users")
 @TableGenerator(name = "UserGen", table = "generator", initialValue = 101, allocationSize = 10,
         pkColumnName = "class", pkColumnValue = "User", valueColumnName = "rsv")
-@Inheritance(strategy = InheritanceType.JOINED)
+
 @NamedQuery(name = "User.findByLogin", query = "SELECT u FROM User u WHERE u.login = :login")
 
 public class User implements Serializable {
@@ -51,16 +57,29 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String email;
 
-    @JoinColumn(name = "group_id")
-    @OneToOne
-    private Role group;
- 
+    @OneToMany(mappedBy = "user", cascade={CascadeType.REMOVE,CascadeType.PERSIST})
+    private List<UserAssociation> roles;
+
     @Column(nullable = false)
-    private boolean active ;
+    private boolean active;
 
-    @Version int version;
+    @Version
+    int version;
 
-    
+    public void addRole(Role role) {
+        UserAssociation association = new UserAssociation();
+        association.setRole(role);
+        association.setUser(this);
+        association.setRoleId(role.getId());
+        association.setUserId(this.getId());
+
+        if (this.roles == null){
+            this.roles = new ArrayList<>();
+        }
+        this.roles.add(association);
+        role.getUsers().add(association);
+    }
+
     /**
      * Get the value of email
      *
@@ -99,24 +118,31 @@ public class User implements Serializable {
         return id;
     }
 
-    protected void setId(Long id){
+    protected void setId(Long id) {
         this.id = id;
     }
-    
-    public Role getGroup() {
-        return group;
-    }
 
-    public void setGroup(Role group) {
-        this.group = group;
-    }
-
+//    public Role getGroup() {
+//        return group;
+//    }
+//
+//    public void setGroup(Role group) {
+//        this.group = group;
+//    }
     public boolean isActive() {
         return active;
     }
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public List<UserAssociation> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<UserAssociation> roles) {
+        this.roles = roles;
     }
 
     @Override

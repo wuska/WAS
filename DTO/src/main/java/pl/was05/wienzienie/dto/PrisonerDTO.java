@@ -7,18 +7,18 @@ package pl.was05.wienzienie.dto;
 
 import java.util.Date;
 
-
 /**
  *
  * @author Kawa
  */
 public class PrisonerDTO {
-    
+
     private String name;
     private Long pesel;
-    private Long karaId;
     private Long prisonerId;
     private Date dateExit;
+    private PenaltyDTO penaltyDTO;
+    private CellDTO cellDTO;
 
     /**
      * @return the name
@@ -48,20 +48,6 @@ public class PrisonerDTO {
         this.pesel = pesel;
     }
 
-    /**
-     * @return the karaId
-     */
-    public Long getKaraId() {
-        return karaId;
-    }
-
-    /**
-     * @param karaId the karaId to set
-     */
-    public void setKaraId(Long karaId) {
-        this.karaId = karaId;
-    }
-
     public Long getPrisonerId() {
         return prisonerId;
     }
@@ -77,11 +63,25 @@ public class PrisonerDTO {
     public void setDateExit(Date dateExit) {
         this.dateExit = dateExit;
     }
-    
-    
-    
+
+    public PenaltyDTO getPenaltyDTO() {
+        return penaltyDTO;
+    }
+
+    public void setPenaltyDTO(PenaltyDTO penaltyDTO) {
+        this.penaltyDTO = penaltyDTO;
+    }
+
+    public CellDTO getCellDTO() {
+        return cellDTO;
+    }
+
+    public void setCellDTO(CellDTO cellDTO) {
+        this.cellDTO = cellDTO;
+    }
+
     @Override
     public String toString() {
-        return "PrisonerDTO{" + "name=" + name + " pesel=" + pesel + " karaId=" + karaId +" dateExit="+dateExit+ "}";
+        return "PrisonerDTO{" + "name=" + name + " pesel=" + pesel + " dateExit=" + dateExit + "}";
     }
 }

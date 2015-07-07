@@ -18,7 +18,8 @@ public class CellConverter {
     public static void convertCellToDTO(Cell src, CellDTO dst) {
         dst.setEmployeeId(src.getEmployeeId());
         dst.setCapacity(src.getCapacity());
-        dst.setId(src.getId());
+        dst.setId(src.getId());        
+        dst.setPrisonerDTOs(PrisonerConverter.convertPrisonerListToDTO(src.getPrisoners()));
     }
 
     public static void convertCellToEntity(CellDTO src, Cell dst) {

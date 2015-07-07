@@ -6,14 +6,21 @@
 package pl.was05.wiezienie.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Version;
+import javax.persistence.criteria.Fetch;
 
 /**
  *
@@ -23,20 +30,32 @@ import javax.persistence.Version;
 @Table(name = "Cells")
 @TableGenerator(name = "CellGen", table = "generator", initialValue = 101, allocationSize = 10,
         pkColumnName = "class", pkColumnValue = "Cell", valueColumnName = "rsv")
+
 public class Cell implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "CellGen")
     private Long id;
-    
+
     @Column(nullable = false, unique = false)
     private Integer capacity;
-    
+
     @Column(nullable = false, unique = false)
     private Integer employeeId;
+    @OneToMany(mappedBy = "cellId")
+    private List<Prisoner> prisoners;
 
-    @Version int version;
-    
+    @Version
+    int version;
+
+    public Cell(Long id) {
+        this.id = id;
+    }
+
+    public Cell() {
+    }
+
     public Long getId() {
         return id;
     }
@@ -61,9 +80,9 @@ public class Cell implements Serializable {
             return false;
         }
         Cell other = (Cell) object;
-        if (((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) ||
-            ((this.capacity == null && other.capacity != null) || (this.capacity != null && !this.capacity.equals(other.capacity))) ||
-            ((this.employeeId == null && other.employeeId != null) || (this.employeeId != null && !this.employeeId.equals(other.employeeId)))) {
+        if (((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+                || ((this.capacity == null && other.capacity != null) || (this.capacity != null && !this.capacity.equals(other.capacity)))
+                || ((this.employeeId == null && other.employeeId != null) || (this.employeeId != null && !this.employeeId.equals(other.employeeId)))) {
             return false;
         }
         return true;
@@ -101,5 +120,15 @@ public class Cell implements Serializable {
     public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
-    
+
+    public List<Prisoner> getPrisoners() {
+        return prisoners;
+    }
+
+    public void setPrisoners(List<Prisoner> prisoners) {
+        this.prisoners = prisoners;
+    }
+
+  
+
 }

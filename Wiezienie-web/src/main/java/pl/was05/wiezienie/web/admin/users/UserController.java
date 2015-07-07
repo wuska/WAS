@@ -58,6 +58,7 @@ public class UserController implements Serializable {
         if (null == registeredUser) {
             throw new IllegalArgumentException("Try to register user omitting registration form");
         }
+        System.err.println("userDTO-registeredUser: "+registeredUser);
         userEndpoint.registerUser(registeredUser);
         registeredUser = null;
     }

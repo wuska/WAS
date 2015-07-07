@@ -32,6 +32,10 @@
             <description/>
             <url-pattern>/*</url-pattern>
         </web-resource-collection>
+        <auth-constraint>
+            <description>all users or admins</description>
+            <role-name>login</role-name>
+        </auth-constraint>
         <user-data-constraint>
             <description/>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
@@ -44,6 +48,10 @@
             <description/>
             <url-pattern>/faces/users/*</url-pattern>
         </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>user</role-name>
+        </auth-constraint>
     </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>
@@ -60,13 +68,21 @@
             <description/>
             <url-pattern>/faces/admin/*</url-pattern>
         </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>admin</role-name>
+        </auth-constraint>
     </security-constraint>
     <security-role>
         <description/>
-        <role-name>ADMINS</role-name>
+        <role-name>admin</role-name>
     </security-role>
     <security-role>
         <description/>
-        <role-name>USERS</role-name>
+        <role-name>user</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>delete</role-name>
     </security-role>
 </web-app>

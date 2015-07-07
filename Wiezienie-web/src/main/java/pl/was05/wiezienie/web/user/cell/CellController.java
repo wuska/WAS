@@ -25,7 +25,7 @@ public class CellController implements Serializable {
     private CellDTO registeredCell;
     private CellDTO viewCell;
     private CellDTO editCell;
-    
+      private CellDTO selectCell;
     public List<CellDTO> getAll() {
         return endpointLocal.getAll();
     }
@@ -50,7 +50,9 @@ public class CellController implements Serializable {
     public void getToEdit(CellDTO cellDTO) {
       editCell =  endpointLocal.getCellToEdit(cellDTO.getId());
     }
-    
+      public void getToSelect(CellDTO cellDTO) {
+         selectCell = endpointLocal.findById(cellDTO.getId());
+    }
     public void saveAfterEdit() {
         endpointLocal.saveCellAfterEdit(editCell);
     }
@@ -59,6 +61,10 @@ public class CellController implements Serializable {
         endpointLocal.removeCell(cellDTO);
     }
 
+         public List<CellDTO> getAllByIdLike(Long id) {
+         System.err.println("getAllByIdLike id: " + id);
+        return endpointLocal.getByIdLike(id);
+    }
     //----------------------------------------------------------------------
     public CellDTO getRegisteredCell() {
         return registeredCell;
@@ -82,6 +88,14 @@ public class CellController implements Serializable {
     
     public void setEditCell(CellDTO editCell) {
         this.editCell = editCell;
+    }
+
+    public CellDTO getSelectCell() {
+        return selectCell;
+    }
+
+    public void setSelectCell(CellDTO selectCell) {
+        this.selectCell = selectCell;
     }
     
 }

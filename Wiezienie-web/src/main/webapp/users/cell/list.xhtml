@@ -25,12 +25,31 @@
                             <f:facet name="header">Opiekun:</f:facet>
                             <h:outputText value="#{row.employeeId}" />
 
-                        </h:column>                        
+                        </h:column>   
+                        <h:column>
+                            <f:facet name="header">No.</f:facet>
+                            <h:outputText value="#{row.id}" />
+
+                        </h:column>   
+
+                        <h:column>
+                            <f:facet name="header">Więźniowie</f:facet>
+                            <h:dataTable value="#{listCellsPageBean.getPrisoners()}" var="rowP" >
+                                <h:column>
+                                    <f:facet name="header">nazwa</f:facet>
+                                    <h:outputText value="#{rowP.name}" />
+
+                                </h:column>  
+
+                            </h:dataTable>
+
+                        </h:column>   
+
                         <h:column>
                             <f:facet name="header">Actions</f:facet>
                             <h:commandButton onclick="if (!confirm('#{msg['deleteMesage']}'))
                                         return false"
-                                             value="#{msg['deleteLabel']}" action="#{listCellsPageBean.remove()}"  />
+                                        value="#{msg['deleteLabel']}" action="#{listCellsPageBean.remove()}" rendered="#{listCellsPageBean.hasRole('admin')}"  />
                             <h:commandButton value="#{msg['showLabel']}" action="#{listCellsPageBean.view()}"/>
                             <h:commandButton value="#{msg['editeLabel']}" action="#{listCellsPageBean.edit()}"/>
 

@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE glassfish-application PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Java EE Application 6.0//EN" "http://glassfish.org/dtds/glassfish-application_6_0-1.dtd">
 <glassfish-application>
-  <security-role-mapping>
-    <role-name>ADMINS</role-name>
-    <group-name>ADMINS</group-name>
+    <security-role-mapping>
+    <role-name>login</role-name>
+    <group-name>login</group-name>
   </security-role-mapping>
   <security-role-mapping>
-    <role-name>USERS</role-name>
-    <group-name>USERS</group-name>
+    <role-name>admin</role-name>
+    <group-name>admins</group-name>
+  </security-role-mapping>
+  <security-role-mapping>
+    <role-name>user</role-name>
+    <group-name>users</group-name>
+  </security-role-mapping>
+   <security-role-mapping>
+    <role-name>edit</role-name>
+    <group-name>edit</group-name>
+  </security-role-mapping>
+    <security-role-mapping>
+    <role-name>delete</role-name>
+    <group-name>delete</group-name>
+    <group-name>admins</group-name>
   </security-role-mapping>
 </glassfish-application>

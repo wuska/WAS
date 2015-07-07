@@ -25,19 +25,21 @@ public class UserConverter {
         dst.setEmail(src.getEmail());
         dst.setLogin(src.getLogin());
         dst.setPass(src.getPassword());
-        dst.setGroupId(src.getGroup().getId());
+        //  dst.setGroupId(src.getGroup().getId());
         dst.setActive(src.isActive());
+        dst.setRoleDTOs(RoleConverter.convertRoleListToDTO(src.getRoles()));
     }
 
     public static void convertUserToEntity(UserDTO src, User dst) {
         dst.setEmail(src.getEmail());
         dst.setLogin(src.getLogin());
         dst.setPassword(src.getPass());
-        dst.setGroup(new  Role(src.getGroupId()));
+        // dst.setGroup(new Role(src.getGroupId()));
         dst.setActive(src.isActive());
+       
 
     }
-    
+
     public static void convertUserToEntityAfterEdit(UserDTO src, User dst) {
         dst.setEmail(src.getEmail());
     }
@@ -49,5 +51,6 @@ public class UserConverter {
             dst.add(tmp);
         }
     }
+    
 
 }

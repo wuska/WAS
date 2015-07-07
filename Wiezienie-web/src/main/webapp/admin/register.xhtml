@@ -21,7 +21,23 @@
                                      valueChangeListener="#{registerPageBean.roleChanged}" >
                         <f:selectItems value="#{registerPageBean.roles}" /> 
                     </h:selectOneMenu> 
-                    <br />
+                    <br /><br />
+                    <h:commandButton value="Dodaj Role" action="#{registerPageBean.addRoleLocation()}" />
+                    <br />Role:
+                    
+                    <h:dataTable value="#{registerPageBean.roleDTOs}" var="row" id="output">
+                        <h:column>
+                            <f:facet name="header">nazwa</f:facet>
+                            <h:outputText value="#{row.groupName}" />
+
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">id</f:facet>
+                            <h:outputText value="#{row.groupId}" />
+
+                        </h:column>
+                    </h:dataTable>
+                    
 
                     <h:commandButton value="OK" action="#{registerPageBean.register()}" />
                     <h:commandButton value="Cancel" action="index" immediate="true" />

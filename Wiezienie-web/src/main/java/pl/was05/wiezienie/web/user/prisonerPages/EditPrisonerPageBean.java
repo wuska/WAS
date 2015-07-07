@@ -5,6 +5,7 @@
  */
 package pl.was05.wiezienie.web.user.prisonerPages;
 
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,6 +16,7 @@ import pl.was05.wiezienie.web.user.prisoner.PrisonerController;
  *
  * @author zar
  */
+
 @RequestScoped
 @Named
 public class EditPrisonerPageBean {
@@ -26,6 +28,7 @@ public class EditPrisonerPageBean {
         return prisonerController.getEditPrison();
     }
 
+    @RolesAllowed({"admin"})
     public String save() {
         prisonerController.saveAfterEdit();
         return "list";

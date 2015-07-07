@@ -28,7 +28,7 @@ public class PenaltyEndpoint implements PenaltyEndpointLocal {
     @EJB
     private PenaltyFacade penaltyFacade;
     private Penalty penaltyEdit = null;
-    
+
     @Override
     public List<PenaltyDTO> getAll() {
         List<Penalty> penaltys = penaltyFacade.findAll();
@@ -37,22 +37,28 @@ public class PenaltyEndpoint implements PenaltyEndpointLocal {
         return penaltyDTOs;
     }
 
+    @Override
+    public List<PenaltyDTO> getByNameLike(String name) {
+        List<Penalty> penaltys = penaltyFacade.findByNameLike(name);
+        List<PenaltyDTO> penaltyDTOs = new ArrayList<>();
+        PenaltyConverter.convertPenaltyListToDTO(penaltys, penaltyDTOs);
+        return penaltyDTOs;
+    }
 
-@Override
+    @Override
     public void registerPenalty(final PenaltyDTO penaltyDTO) {
         Penalty penalty = new Penalty();
-        System.out.println("registerPenalty  penaltyDTO : "+penaltyDTO);
+        System.out.println("registerPenalty  penaltyDTO : " + penaltyDTO);
         PenaltyConverter.convertPenaltyToEntity(penaltyDTO, penalty);
         System.out.println(penalty);
         penaltyFacade.create(penalty);
 
     }
-  
+
     @Override
- public void removePenalty(PenaltyDTO penaltyDTO) {
+    public void removePenalty(PenaltyDTO penaltyDTO) {
         penaltyFacade.remove(penaltyFacade.find(penaltyDTO.getId()));
     }
-
 
     @Override
     public PenaltyDTO getPenaltyToEdit(String name) {
@@ -82,9 +88,9 @@ public class PenaltyEndpoint implements PenaltyEndpointLocal {
         PenaltyConverter.convertPenaltyToEntityAfterEdit(penaltyDTO, penaltyEdit);
         penaltyFacade.edit(penaltyEdit);
     }
-    
+
     @Override
-     public PenaltyDTO findById(Long penaltyId) {
+    public PenaltyDTO findById(Long penaltyId) {
         Penalty tmp = penaltyFacade.find(penaltyId);
         PenaltyDTO val = new PenaltyDTO();
         PenaltyConverter.convertPenaltyToDTO(tmp, val);
@@ -92,7 +98,7 @@ public class PenaltyEndpoint implements PenaltyEndpointLocal {
     }
 
     @Override
-     public PenaltyDTO findByName(String name) {
+    public PenaltyDTO findByName(String name) {
         Penalty tmp = penaltyFacade.findByName(name);
         PenaltyDTO val = new PenaltyDTO();
         PenaltyConverter.convertPenaltyToDTO(tmp, val);

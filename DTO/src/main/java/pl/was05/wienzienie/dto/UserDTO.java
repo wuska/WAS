@@ -5,6 +5,8 @@
  */
 package pl.was05.wienzienie.dto;
 
+import java.util.List;
+
 /**
  *
  * @author Dawid
@@ -15,7 +17,7 @@ public class UserDTO {
     private String pass;
     private String email;
     private boolean active = false;
-    
+    private List<RoleDTO> roleDTOs;
     private Long groupId;
 
     public String getPass() {
@@ -61,10 +63,21 @@ public class UserDTO {
         this.groupId = groupId;
     }
 
+    public List<RoleDTO> getRoleDTOs() {
+        return roleDTOs;
+    }
+
+    public void setRoleDTOs(List<RoleDTO> roleDTOs) {
+        this.roleDTOs = roleDTOs;
+    }
+
+    
+
+    
     
     @Override
     public String toString() {
-        return "UserDTO{" + "login=" + login + " pass=" + pass + " email=" + email + "}";
+        return "UserDTO{" + "login=" + login + " pass=" + pass + " email=" + email + " roleDTOs.count"+roleDTOs.size()+"}";
     }
 
 }

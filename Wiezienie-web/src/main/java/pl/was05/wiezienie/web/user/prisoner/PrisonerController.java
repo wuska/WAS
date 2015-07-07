@@ -7,6 +7,8 @@ package pl.was05.wiezienie.web.user.prisoner;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import pl.was05.wienzienie.dto.PrisonerDTO;

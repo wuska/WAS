@@ -25,9 +25,14 @@ public class PenaltyController implements Serializable {
     private PenaltyDTO registeredPenalty;
     private PenaltyDTO viewPenalty;
     private PenaltyDTO editPenalty;
+     private PenaltyDTO selectPenalty;
     
     public List<PenaltyDTO> getAll() {
         return endpointLocal.getAll();
+    }
+    public List<PenaltyDTO> getAllByNameLike(String name) {
+         System.err.println("getAllByNameLike name: " + name);
+        return endpointLocal.getByNameLike(name);
     }
     
     public void getToView(PenaltyDTO penaltyDTO) {
@@ -42,7 +47,9 @@ public class PenaltyController implements Serializable {
     public void getToEdit(PenaltyDTO penaltyDTO) {
         editPenalty = endpointLocal.getPenaltyToEdit(penaltyDTO.getName());
     }
-    
+    public void getToSelect(PenaltyDTO penaltyDTO) {
+         selectPenalty = endpointLocal.findByName(penaltyDTO.getName());
+    }
     public void saveAfterEdit() {
         endpointLocal.savePenaltyAfterEdit(editPenalty);
     }
@@ -76,5 +83,14 @@ public class PenaltyController implements Serializable {
     public void setEditPenalty(PenaltyDTO editPenalty) {
         this.editPenalty = editPenalty;
     }
+
+    public PenaltyDTO getSelectPenalty() {
+        return selectPenalty;
+    }
+
+    public void setSelectPenalty(PenaltyDTO selectPenalty) {
+        this.selectPenalty = selectPenalty;
+    }
+    
     
 }

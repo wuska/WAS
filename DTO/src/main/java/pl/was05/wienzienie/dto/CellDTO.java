@@ -5,6 +5,8 @@
  */
 package pl.was05.wienzienie.dto;
 
+import java.util.List;
+
 
 /**
  *
@@ -15,6 +17,7 @@ public class CellDTO {
     private Integer capacity;
     private Integer employeeId;
     private Long id;
+    private List<PrisonerDTO> prisonerDTOs;
 
     public Integer getCapacity() {
         return capacity;
@@ -39,6 +42,15 @@ public class CellDTO {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public List<PrisonerDTO> getPrisonerDTOs() {
+        return prisonerDTOs;
+    }
+
+    public void setPrisonerDTOs(List<PrisonerDTO> prisonerDTOs) {
+        this.prisonerDTOs = prisonerDTOs;
+    }
+    
     
     
     @Override

@@ -18,4 +18,6 @@ public interface RoleEndpointLocal {
 
     public List<RoleDTO> getAllRoles();
 
+    public List<RoleDTO> getAllByNameLike(String name);
+
 }

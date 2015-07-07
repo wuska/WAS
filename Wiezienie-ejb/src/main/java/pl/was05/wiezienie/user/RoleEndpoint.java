@@ -25,9 +25,18 @@ public class RoleEndpoint implements RoleEndpointLocal {
     private RoleFacade roleFacade;
 
   
+    @Override
     public List<RoleDTO> getAllRoles() {
         System.out.println("RoleEndpoint:getAllRole()");
         List<Role> roles = roleFacade.findAll();
+        List<RoleDTO> roledtos = new ArrayList<>();
+        RoleConverter.convertRoleListToDTO(roles, roledtos);
+        return roledtos;
+    }
+    
+    @Override
+    public List<RoleDTO> getAllByNameLike(String name) {
+        List<Role> roles = roleFacade.findByNameLike(name);
         List<RoleDTO> roledtos = new ArrayList<>();
         RoleConverter.convertRoleListToDTO(roles, roledtos);
         return roledtos;

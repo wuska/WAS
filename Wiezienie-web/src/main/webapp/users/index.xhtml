@@ -1,24 +1,30 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Secured User Area</title>
     </h:head>
     <h:body>
-        <h1>Hello User</h1>
-        <br />
-        <h:link outcome="/index" value="Back to Homepage" />   <br />   <br />
+        <ui:composition template="/template/common/commonLayout.xhtml">    
+            <ui:define name="content">      
+                <h1>Hello User</h1>
+                <br />
+                <h:link outcome="/index" value="Back to Homepage" />   <br />   <br />
 
-        <br />  
-        <br />  <h1>Penalty</h1>
-        <h:link outcome="penalty/list" value="List" />   <br />   
-        <h:link outcome="penalty/register" value="Add" />   <br />   
-        <br />  <h1>Cell</h1>
-        <h:link outcome="cell/list" value="List" />   <br />   
-        <h:link outcome="cell/register" value="Add" />   <br />   
-        <br />  <h1>Prison</h1>
-        <h:link outcome="prisoner/list" value="List" />   <br />   
-        <h:link outcome="prisoner/register" value="Add" />   <br />   
+                <br />  
+                <br />  <h1>Penalty</h1>
+                <h:link outcome="penalty/list" value="List" />   <br />   
+                <h:link outcome="penalty/register" value="Add" />   <br />   
+                <br />  <h1>Cell</h1>
+                <h:link outcome="cell/list" value="List" />   <br />   
+                <h:link outcome="cell/register" value="Add" />   <br />   
+                <br />  <h1>Prison</h1>
+                <h:link outcome="prisoner/list" value="List" />   <br />   
+                <h:link outcome="prisoner/register" value="Add" />   <br />  
+                <h:link outcome="prisoner/registerNew" value="Add New" />   <br />   
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>

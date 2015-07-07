@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>List</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/template/common/commonLayout.xhtml">    
+            <ui:define name="content">
+                List:<br/>
+
+                <h:form  >   
+                    <h:outputText value="Currently Selected : #{selectRolePageBean.selected}" /><br/><br/>
+                    <h:inputText id="search"  >
+                        <f:ajax event="keyup" execute="search" render="output"  listener="#{selectRolePageBean.phaseListener}"/>
+                    </h:inputText>
+                    <h:commandButton value="#{msg['refLabel']}" />
+                    <h:commandButton value="#{msg['cancelLabel']}" action="/users/index" />
+                    <h:dataTable value="#{selectRolePageBean.roles}" var="row" id="output">
+                        <h:column>
+                            <f:facet name="header">nazwa</f:facet>
+                            <h:outputText value="#{row.groupName}" />
+
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">id</f:facet>
+                            <h:outputText value="#{row.groupId}" />
+
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Actions</f:facet>
+                            <h:selectBooleanCheckbox value="#{selectRolePageBean.checkMap[row]}">
+                                <f:ajax event="click" execute="@form" render="@form" />
+                            </h:selectBooleanCheckbox>
+                        </h:column>
+                    </h:dataTable>
+                    <h:commandButton value="OK" action="#{selectRolePageBean.select()}" />
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -15,7 +15,9 @@ import javax.persistence.LockModeType;
 import javax.persistence.OptimisticLockException;
 import pl.was05.wienzienie.dto.CellDTO;
 import pl.was05.wiezienie.entities.Cell;
+import pl.was05.wiezienie.entities.Prisoner;
 import pl.was05.wiezienie.facades.CellFacade;
+import pl.was05.wiezienie.facades.PrisonerFacade;
 import pl.was05.wiezienie.utils.CellConverter;
 
 /**
@@ -27,8 +29,10 @@ public class CellEndpoint implements CellEndpointLocal {
 
     @EJB
     private CellFacade cellFacade;
+
     private Cell cellEdit = null;
-    
+    private Cell cellCreate = null;
+
     @Override
     public List<CellDTO> getAll() {
         List<Cell> cells = cellFacade.findAll();
@@ -37,21 +41,37 @@ public class CellEndpoint implements CellEndpointLocal {
         return cellDTOs;
     }
 
+    @Override
+    public List<CellDTO> getByIdLike(Long id) {
+        List<Cell> cells = cellFacade.findByIdLike(id);
+        List<Cell> cellsOut = new ArrayList<>();
 
-@Override
+        for (Cell x : cells) {
+            cellFacade.refresh(x);
+            if (x.getPrisoners().size() < x.getCapacity()) {
+                cellsOut.add(x);
+            }
+        }
+
+        List<CellDTO> cellDTOs = new ArrayList<>();
+        CellConverter.convertCellListToDTO(cellsOut, cellDTOs);
+        return cellDTOs;
+    }
+
+    @Override
     public void registerCell(final CellDTO cellDTO) {
         Cell cell = new Cell();
         CellConverter.convertCellToEntity(cellDTO, cell);
         System.out.println(cell);
         cellFacade.create(cell);
+       
 
     }
-  
+
     @Override
- public void removeCell(CellDTO cellDTO) {
+    public void removeCell(CellDTO cellDTO) {
         cellFacade.remove(cellFacade.find(cellDTO.getId()));
     }
-
 
     @Override
     public CellDTO getCellToEdit(Long cellId) {
@@ -80,15 +100,15 @@ public class CellEndpoint implements CellEndpointLocal {
         }
         CellConverter.convertCellToEntityAfterEdit(cellDTO, cellEdit);
         cellFacade.edit(cellEdit);
+        
     }
-    
+
     @Override
-     public CellDTO findById(Long cellId) {
+    public CellDTO findById(Long cellId) {
         Cell tmp = cellFacade.find(cellId);
         CellDTO val = new CellDTO();
         CellConverter.convertCellToDTO(tmp, val);
         return val;
     }
-
 
 }
